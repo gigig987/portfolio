@@ -32,6 +32,7 @@
         flex: 1 1 320px;
         align-items: center;
         box-shadow: none;
+        background-color: transparent;
     }
     article:nth-child(even) {
         flex-direction: row-reverse;
@@ -39,9 +40,12 @@
     }
     article:nth-child(even) .image {
         transform: translate(-10vw, 0vw);
-        
+    }
+    article:nth-child(odd) .image {
+        transform: translate(10vw, 0vw);
     }
     article :is(.half) {
         flex: 1;
     }
+
 </style>

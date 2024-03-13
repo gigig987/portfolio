@@ -13,7 +13,7 @@
 	// import Embed from "./Embed.svelte";
     export let block: BlockWithChildren;
     export let inColumn = false
-    $: console.log("type",block.type, block);
+    // $: console.log("type",block.type, block);
 </script>
 
 

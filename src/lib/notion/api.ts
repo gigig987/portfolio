@@ -17,7 +17,7 @@ export const getDatabaseById = async (blogClient: BlogClient): Promise<Result<(P
         }
         
         const database = await notion.databases.query({
-            database_id: blogClient.config.databaseId,
+            database_id: blogClient.config.projectsDatabaseId,
             filter: {
                 property: "Published",
                 checkbox: {
@@ -45,6 +45,62 @@ export const getDatabaseById = async (blogClient: BlogClient): Promise<Result<(P
     }
 }
 
+export const getSkillsDatabaseById = async (blogClient: BlogClient): Promise<Result<(PageObjectResponse)[], ErrorResult>> => {
+    try {
+        const notion = blogClient.client;
+
+        if(!notion){
+            return err({code: 400, message: "Invalid or missing notion secret"});
+        }
+        
+        const database = await notion.databases.query({
+            database_id: blogClient.config.skillsDatabaseId,
+            sorts: [
+                {
+                  property: "Value",
+                  direction: "descending"
+                  }
+            ],
+        });
+
+        const results = database.results;
+        
+        if(isPageObjectResponse(results) && results?.length > 0){
+            const result : PageObjectResponse[] = results;
+            return ok(result);
+        }else{
+            return ok([]);
+        }
+    } catch (error) {
+        return handleNotionError(error);
+    }
+}
+
+export const getManifestoDatabaseById = async (blogClient: BlogClient): Promise<Result<(PageObjectResponse)[], ErrorResult>> => {
+    try {
+        const notion = blogClient.client;
+
+        if(!notion){
+            return err({code: 400, message: "Invalid or missing notion secret"});
+        }
+        
+        const database = await notion.databases.query({
+            database_id: blogClient.config.manifestoDatabaseId
+        });
+
+        const results = database.results;
+        
+        if(isPageObjectResponse(results) && results?.length > 0){
+            const result : PageObjectResponse[] = results;
+            return ok(result);
+        }else{
+            return ok([]);
+        }
+    } catch (error) {
+        return handleNotionError(error);
+    }
+}
+
 export const getPageBySlug = async (blogClient: BlogClient, slug: string): Promise<Result<PageObjectResponse[], ErrorResult>> =>{
     try {
         const notion = blogClient.client;
@@ -54,7 +110,7 @@ export const getPageBySlug = async (blogClient: BlogClient, slug: string): Promi
         }
 
         const res = await notion.databases.query({
-            database_id: blogClient.config.databaseId,
+            database_id: blogClient.config.projectsDatabaseId,
 
             filter: {
                 property: "Slug",

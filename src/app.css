@@ -1,5 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Sanchez:ital@0;1&display=swap');
 
+
+@font-face {
+	font-family: 'Satoshi-Regular';
+	src: url('/fonts/Satoshi-Regular.woff2') format('woff2'),
+		 url('/fonts/Satoshi-Regular.woff') format('woff'),
+		 url('/fonts/Satoshi-Regular.ttf') format('truetype');
+		 font-weight: 400;
+		 font-display: swap;
+		 font-style: normal;
+  }
+
 @keyframes fade-in {
 	from {
 		opacity: 0;
@@ -41,11 +52,11 @@
 }
 
 :root {
-    --pico-font-family: "Sanchez", serif;
+    --pico-font-family: "Satoshi-Regular", sans-serif;
 	--pico-spacing: 2rem;
 }
 
-section article {
+section.flat article {
 	box-shadow: none;
 	background: none;
 }
@@ -68,3 +79,29 @@ video {
 p {
 	margin-block-start: var(--pico-typography-spacing-vertical);
 }
+
+h1, h2, h3, h4, h5, h6 {
+    --pico-font-weight: 400;
+}
+
+.big-text {
+	--pico-font-size: 1.75rem;
+	--pico-line-height: 1.15;
+	--pico-typography-spacing-top: 2.625rem;
+	font-size: var(--pico-font-size);
+}
+
+.medium-text {
+	--pico-font-size: 1.25rem;
+    --pico-line-height: 1.2;
+    --pico-typography-spacing-top: 1.874rem;
+	font-size: var(--pico-font-size);
+}
+
+html {
+	scroll-behavior:smooth;
+  }
+
+  .hero {
+    padding-block: calc(var(--pico-spacing) * 4);
+  }

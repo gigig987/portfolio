@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { JsonLd, MetaTags } from "svelte-meta-tags";
-	// import ErrorPage from "./ErrorPage.svelte";
+    import type { BlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 	import Project from "./Project.svelte";
 	import type { TableOfContentItems } from "$lib/types";
 	import type { PageData } from "../../routes/projects/[slug]/$types";
@@ -9,7 +9,7 @@
 
     let tableOfContent: (TableOfContentItems | undefined)[] | undefined;
 
-    $: tableOfContent = data?.blocks?.map((block)=>{
+    $: tableOfContent = data?.blocks?.map((block : BlockObjectResponse)=>{
         if(block.type==="heading_1"){
             return {
                 type: block.type,
@@ -88,6 +88,6 @@
     }}
 /> 
 
-<section>
+<section class="flat">
     <Project blocks={data.blocks} title={data.title} />
 </section>

@@ -1,5 +1,5 @@
 import type { PageServerLoad } from './$types';
-import { getAllPosts } from "$lib/notion";
+import { getAllSkills, getAllManifesto } from "$lib/notion";
 import redis from '$lib/scripts/redis';
 
 import type { BlogSettings } from '$lib/notion';
@@ -18,17 +18,24 @@ type SuccessResponse = {
   };
 export const load: PageServerLoad = async () => {
     try {
-        const data = await redis.get('projects')
+        const data = await redis.get('home')
         if (data) {
-            console.log('cached projects')
+            console.log('cached home')
             return JSON.parse(data);
         } else {
-            console.log('NO cached projects, fetching notion')
-            const projects: SuccessResponse | ErrorResponse | undefined = await getAllPosts();
-            if (projects && !('error' in projects)) {
-                redis.setex('projects', 3600 * 1, JSON.stringify(projects));
+            console.log('NO cached home, fetching notion')
+            const skills = await getAllSkills();
+            const manifesto = await getAllManifesto();
+            const response = {...skills, ...manifesto}
+            if (
+                (skills && !('error' in skills))
+                &&
+                (manifesto && !('error' in manifesto))
+
+                ) {
+                redis.setex('home', 3600 * 1, JSON.stringify(response));
             }
-            return projects
+            return response
         }
     } catch (error) {
         return {
