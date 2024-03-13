@@ -41,6 +41,7 @@ export interface Properties {
     Title:               ShortDescription;
     Name:                Title;
     Type:                Type;
+    CoverAlt:            ShortDescription;
 }
 
 export interface Authors {

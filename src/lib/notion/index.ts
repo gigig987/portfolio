@@ -1,8 +1,6 @@
 import { Client, isFullUser } from "@notionhq/client";
 import { getBlocks, getDatabaseById, getSkillsDatabaseById, getManifestoDatabaseById, getFAQs, getPageBySlug } from "./api";
 import type { ServerLoadEvent } from "@sveltejs/kit";
-// import BlogPost from "$lib/components/BlogPost.svelte";
-// import PostsList from "$lib/components/PostsList.svelte";
 
 type Tokens = { notionToken: string, projectsDatabaseId: string, skillsDatabaseId: string, manifestoDatabaseId: string, vercelByPassToken?: string };
 export type BlogSettings = { blogTitle?: string, blogDescription?: string };
@@ -258,5 +256,3 @@ export const getBlogPageBySlug = async (event: ServerLoadEvent) => {
         }
     }
 }
-
-// export { BlogPost, PostsList }

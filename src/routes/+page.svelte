@@ -16,7 +16,6 @@
 
     // Chunk the skills array into groups of 4
     $: chunkedSkills = chunk(skills, 4);
-    $: chuckedManifesto = chunk(manifesto, 3)
 </script>
 
 <section class="hero">
@@ -67,22 +66,7 @@
     </article>
     {/each}
 </section>
-<!-- {#each chuckedManifesto as group}
-    <div class="grid">
-        {#each group as manifesto}
-            <div>
-                <article>
-                    <header>
-                        {manifesto.properties?.Name?.title[0]?.plain_text}
-                    </header>
-                    <main>
 
-                    </main>
-                </article>
-            </div>
-        {/each}
-    </div>
-{/each} -->
 
 <style>
 .manifesto {
@@ -94,9 +78,7 @@
 
 .manifesto .manifesto-entry {
     margin: 0;
-    margin-bottom: 0.75rem 
-rem
-;
+    margin-bottom: 0.75rem;
     padding-block-start: 0;
     padding-block-end: calc(var(--pico-spacing) * 0.75);
     padding-inline: calc(var(--pico-spacing) * 1);

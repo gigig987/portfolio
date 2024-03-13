@@ -1,8 +1,6 @@
 <script lang="ts">
 	import PostItem from "./PostItem.svelte";
 	import type { PageData } from "../../routes/projects/$types";
-	import type { Cover, Properties } from "$lib/types";
-
     export let data: PageData;
 </script>
 

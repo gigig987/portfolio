@@ -20,7 +20,7 @@
         <Image
         src= { (cover?.external?.url ?? cover?.file?.url ) ?? "https://picsum.photos/id/300/500?blur=9&random=2" }
         layout="fullWidth"
-        alt="A lovely bath"
+        alt={properties.CoverAlt?.rich_text?.[0]?.plain_text}
         background="auto"
         />
     </div>
