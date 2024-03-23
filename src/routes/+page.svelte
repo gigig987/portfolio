@@ -19,7 +19,7 @@
 </script>
 
 <section class="hero">
-    <h1>My name is Gianluca Gini, and I'm a product designer who ❤️ coding. I'm currently at Soldo. I also created Geenes.app.</h1>
+    <h1>I'm Gianluca Gini, a coding-loving product designer at Soldo, and the creator of Geenes.app</h1>
     <aside>
 
         <a href="/projects"><button class="outline">Check my work</button></a>

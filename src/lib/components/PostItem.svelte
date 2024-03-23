@@ -29,23 +29,28 @@
 <style>
     article {
         display: flex;
-        flex: 1 1 320px;
         align-items: center;
         box-shadow: none;
         background-color: transparent;
+        flex-wrap: wrap;
     }
     article:nth-child(even) {
         flex-direction: row-reverse;
 
     }
+
+    @media(min-width: 576px) {
     article:nth-child(even) .image {
         transform: translate(-10vw, 0vw);
     }
     article:nth-child(odd) .image {
         transform: translate(10vw, 0vw);
     }
+}
     article :is(.half) {
-        flex: 1;
+        flex: 1 1 320px;
     }
-
+    article > * {
+        margin-block-end: var(--pico-spacing);
+    }
 </style>
