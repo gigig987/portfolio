@@ -20,7 +20,7 @@ type ErrorResponse = {
 const fetchDataFromNotion = async () => {
   const skills = await getAllSkills();
   const manifesto = await getAllManifesto();
-  const response = { skills, manifesto };
+  const response = { ...skills, ...manifesto };
   return response;
 };
 
