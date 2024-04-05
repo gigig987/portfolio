@@ -10,6 +10,7 @@
     import BigText from "./BigText.svelte";
     import VideoBlock from "./VideoBlock.svelte";
     import Divider from "./Divider.svelte";
+    import Button from "./Button.svelte";
 	// import Embed from "./Embed.svelte";
     export let block: BlockWithChildren;
     export let inColumn = false
@@ -37,6 +38,8 @@
     <VideoBlock {block} />
 {:else if block.type=="divider"}
     <Divider />
+{:else if block.type=="callout"}
+    <Button {block} />
 <!-- {:else if block.type=="numbered_list_item"}
     <NumberedList {block} />
 {:else if block.type=="embed"}

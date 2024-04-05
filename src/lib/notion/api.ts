@@ -45,7 +45,7 @@ export const getDatabaseById = async (blogClient: BlogClient): Promise<Result<(P
     }
 }
 
-export const getSkillsDatabaseById = async (blogClient: BlogClient): Promise<Result<(PageObjectResponse)[], ErrorResult>> => {
+export const getSkillsDatabaseById = async (blogClient: BlogClient, dbId? : string): Promise<Result<(PageObjectResponse)[], ErrorResult>> => {
     try {
         const notion = blogClient.client;
 
@@ -54,7 +54,7 @@ export const getSkillsDatabaseById = async (blogClient: BlogClient): Promise<Res
         }
         
         const database = await notion.databases.query({
-            database_id: blogClient.config.skillsDatabaseId,
+            database_id: dbId || blogClient.config.skillsDatabaseId,
             sorts: [
                 {
                   property: "Value",
@@ -76,7 +76,7 @@ export const getSkillsDatabaseById = async (blogClient: BlogClient): Promise<Res
     }
 }
 
-export const getManifestoDatabaseById = async (blogClient: BlogClient): Promise<Result<(PageObjectResponse)[], ErrorResult>> => {
+export const getManifestoDatabaseById = async (blogClient: BlogClient, dbId? : string): Promise<Result<(PageObjectResponse)[], ErrorResult>> => {
     try {
         const notion = blogClient.client;
 
@@ -85,7 +85,7 @@ export const getManifestoDatabaseById = async (blogClient: BlogClient): Promise<
         }
         
         const database = await notion.databases.query({
-            database_id: blogClient.config.manifestoDatabaseId
+            database_id: dbId || blogClient.config.manifestoDatabaseId
         });
 
         const results = database.results;
@@ -189,7 +189,53 @@ export const getBlocks = async (blogClient: BlogClient, blockId: string): Promis
     }
 }
 
+export const getHomeBlocks = async (blogClient: BlogClient): Promise<Result<BlockObjectResponse[], ErrorResult>> => {
+    const notion = blogClient.client;
 
+    if (!notion) {
+        return err({ code: 400, message: "Invalid or missing notion secret" });
+    }
+
+    async function getBlocksWithChildren(blockId: string): Promise<BlockWithChildren[]> {
+        const { results } = await notion.blocks.children.list({
+            block_id: blockId,
+            page_size: 100,
+        });
+    
+        let blocks: BlockWithChildren[] = [];
+    
+        if (results && results.length > 0) {
+            // Map each block to a promise that resolves to its children
+            const childrenPromises = results.map(block => {
+                if (!isFullBlock(block)) return null;
+                return block.has_children ? getBlocksWithChildren(block.id) : Promise.resolve([]);
+            });
+    
+            // Resolve all promises in parallel
+            const childrenBlocks = await Promise.all(childrenPromises);
+    
+            // Combine parent blocks with their children
+            results.forEach((block, index) => {
+                if (!isFullBlock(block)) return;
+                const children = childrenBlocks[index];
+                if (children) {
+                    (block as BlockWithChildren).children = children;
+                }
+                blocks.push(block);
+            });
+        }
+    
+        return blocks;
+    }
+    
+
+    try {
+        const blocks = await getBlocksWithChildren(blogClient.config.homePageId);
+        return ok(blocks);
+    } catch (error) {
+        return err({ code: 500, message: "Unknown Error" });
+    }
+}
 const handleNotionError = (error: unknown) => {
     if (isNotionClientError(error)) {
         // error is now strongly typed to NotionClientError
@@ -258,3 +304,4 @@ export const getFAQs = async (blogClent: BlogClient, id: string): Promise<Result
         });
     }
 }
+

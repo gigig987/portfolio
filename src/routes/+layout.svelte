@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { PUBLIC_NOTION_MANIFESTO_DB_ID, PUBLIC_NOTION_PROJECTS_DB_ID, PUBLIC_NOTION_SKILLS_DB_ID, PUBLIC_NOTION_TOKEN } from "$env/static/public";
+    import { PUBLIC_NOTION_MANIFESTO_DB_ID, PUBLIC_NOTION_PROJECTS_DB_ID, PUBLIC_NOTION_SKILLS_DB_ID, PUBLIC_NOTION_TOKEN, PUBLIC_NOTION_HOME_ID } from "$env/static/public";
     import { initNotionBlog } from "$lib/notion";
 	
 	import { onNavigate } from '$app/navigation';
@@ -32,14 +32,18 @@
             projectsDatabaseId:  PUBLIC_NOTION_PROJECTS_DB_ID, 
 			skillsDatabaseId: PUBLIC_NOTION_SKILLS_DB_ID,
 			manifestoDatabaseId: PUBLIC_NOTION_MANIFESTO_DB_ID,
-            notionToken: PUBLIC_NOTION_TOKEN, 
+            notionToken: PUBLIC_NOTION_TOKEN,
+			homePageId: PUBLIC_NOTION_HOME_ID
         },
         settings: {}
     });
 </script>
 
 <svelte:head>
-	<title>Gianluca Gini - Product designer</title>
+	<title>Gianluca Gini - Lead Product designer</title>
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script> -->
 </svelte:head>
 
 <header>

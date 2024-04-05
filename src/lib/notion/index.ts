@@ -1,8 +1,15 @@
 import { Client, isFullUser } from "@notionhq/client";
-import { getBlocks, getDatabaseById, getSkillsDatabaseById, getManifestoDatabaseById, getFAQs, getPageBySlug } from "./api";
+import { getBlocks, getHomeBlocks, getDatabaseById, getSkillsDatabaseById, getManifestoDatabaseById, getFAQs, getPageBySlug } from "./api";
 import type { ServerLoadEvent } from "@sveltejs/kit";
 
-type Tokens = { notionToken: string, projectsDatabaseId: string, skillsDatabaseId: string, manifestoDatabaseId: string, vercelByPassToken?: string };
+type Tokens = { 
+    notionToken: string,
+    projectsDatabaseId: string, 
+    skillsDatabaseId: string,
+    manifestoDatabaseId: string,
+    homePageId: string,
+    vercelByPassToken?: string 
+};
 export type BlogSettings = { blogTitle?: string, blogDescription?: string };
 type InitConfig = { tokens: Tokens, settings: BlogSettings };
 export type BlogClient = { client: Client, config: Tokens, settings: BlogSettings };
@@ -252,6 +259,60 @@ export const getBlogPageBySlug = async (event: ServerLoadEvent) => {
             error: {
                 code: response.error.code,
                 message: response.error.message
+            }
+        }
+    }
+}
+
+export const getHomeContent = async () => {
+
+    if (!notionCLient) {
+        return {
+            error: {
+                code: 400,
+                message: "Notion client is not initialized"
+            }
+        }
+    }
+
+
+    const blockResponse = await getHomeBlocks(notionCLient);
+
+    if (blockResponse.isOk()) {
+        //console.log("result", JSON.stringify(blockResponse.value));
+        const blocks = blockResponse.value;
+        const SkillsDbId = blocks?.filter((f) => f.type == "child_database" && f.child_database.title.includes("Skill"))?.[0]?.id;
+        let skills = null;
+        const manifestoDbId = blocks?.filter((f) => f.type == "child_database" && f.child_database.title.includes("Manifesto"))?.[0]?.id;
+        let manifesto = null;
+
+        if (SkillsDbId) {
+            const skillsResponse = await getSkillsDatabaseById(notionCLient, SkillsDbId);
+
+            if (skillsResponse.isOk()) {
+                skills = skillsResponse.value;
+            }
+        }
+        if (manifestoDbId) {
+            const manifestoResponse = await getManifestoDatabaseById(notionCLient, manifestoDbId);
+
+            if (manifestoResponse.isOk()) {
+                manifesto = manifestoResponse.value;
+            }
+        }
+
+        return {
+            blocks,
+            skills,
+            manifesto
+        }
+    }
+
+    if (blockResponse.isErr()) {
+        return {
+            error: {
+                code: blockResponse.error.code,
+                message: blockResponse.error.message
             }
         }
     }

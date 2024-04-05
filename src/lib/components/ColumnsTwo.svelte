@@ -22,4 +22,7 @@
         justify-content: center;
         flex-direction: column;
     }
+    .grid {
+        align-items: center;
+    }
 </style>
