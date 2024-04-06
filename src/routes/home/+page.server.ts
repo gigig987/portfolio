@@ -36,11 +36,9 @@ export const load: PageServerLoad = async () => {
     console.log('NO cached home, fetching notion');
     const response = await fetchDataFromNotion();
 
-    if (
-      (response.skills && !('error' in response.skills)) &&
-      (response.manifesto && !('error' in response.manifesto))
+    if (response.blocks && !('error' in response)
     ) {
-      // redis.setex('home-content', 3600 * 72, JSON.stringify(response));
+      redis.setex('home-content', 3600 * 1, JSON.stringify(response));
     }
 
     return response;
