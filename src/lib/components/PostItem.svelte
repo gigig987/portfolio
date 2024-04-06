@@ -45,6 +45,7 @@
     }
     article:nth-child(odd) .image {
         transform: translate(10vw, 0vw);
+        z-index: -1;
     }
 }
     article :is(.half) {

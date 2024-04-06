@@ -5,16 +5,14 @@
 	import Paragraph from "./Paragraph.svelte";
     import ColumnsTwo from "./ColumnsTwo.svelte";
 	import ImageBlock from "./ImageBlock.svelte";
-	// import NumberedList from "./NumberedList.svelte";
 	import BulletList from "./BulletList.svelte";
     import BigText from "./BigText.svelte";
     import VideoBlock from "./VideoBlock.svelte";
     import Divider from "./Divider.svelte";
     import Button from "./Button.svelte";
-	// import Embed from "./Embed.svelte";
+    import Code from "./Code.svelte";
     export let block: BlockWithChildren;
     export let inColumn = false
-    // $: console.log("type",block.type, block);
 </script>
 
 
@@ -40,9 +38,8 @@
     <Divider />
 {:else if block.type=="callout"}
     <Button {block} />
-<!-- {:else if block.type=="numbered_list_item"}
-    <NumberedList {block} />
-{:else if block.type=="embed"}
-    <Embed {block} /> -->
+{:else if block.type=="code"}
+    <Code {block} />
+
 {/if}
 

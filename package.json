@@ -15,6 +15,7 @@
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@types/node": "^20.11.26",
+		"@types/prismjs": "^1.26.3",
 		"svelte": "^4.2.7",
 		"svelte-check": "^3.6.0",
 		"tslib": "^2.4.1",
@@ -27,6 +28,7 @@
 		"@unpic/svelte": "^0.0.51",
 		"ioredis": "^5.3.2",
 		"neverthrow": "^6.1.0",
+		"prismjs": "^1.29.0",
 		"svelte-meta-tags": "^3.1.1"
 	}
 }

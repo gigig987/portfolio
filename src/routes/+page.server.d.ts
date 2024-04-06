@@ -9,9 +9,11 @@ export declare const load: () => Promise<{
         code: number;
         message: string;
     };
+    blocks? : undefined;
     skills?: undefined;
     manifesto?: undefined;
 } | {
+    blocks: import("@notionhq/client/build/src/api-endpoints").BlockObjectResponse[];
     skills: import("@notionhq/client/build/src/api-endpoints").PageObjectResponse[];
     manifesto: import("@notionhq/client/build/src/api-endpoints").PageObjectResponse[];
     error?: undefined;
