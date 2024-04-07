@@ -4,7 +4,6 @@
     import Block from "$lib/components/Block.svelte";
     export let data: PageData;
 
-    console.log(data)
 </script>
 
 {#each data.blocks as block}

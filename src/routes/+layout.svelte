@@ -42,9 +42,6 @@
 
 <svelte:head>
 	<title>Gianluca Gini - Lead Product designer</title>
-	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-	<script>hljs.highlightAll();</script> -->
 </svelte:head>
 
 <header>
@@ -86,9 +83,6 @@
 		padding-block-end: calc(var(--pico-spacing) * 2);
 	}
 
-	footer nav {
-	}
-	
 	@media(max-width: 576px) {
 		footer nav {
 			flex-wrap: wrap;
