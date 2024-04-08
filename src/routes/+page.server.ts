@@ -12,7 +12,7 @@ export const load: PageServerLoad = async () => {
     const data = await redis.get('home-content');
     if (data) {
       const parsedData = JSON.parse(data);
-      if (parsedData.blocks) {
+      if (parsedData.blocks && parsedData.blocks.length) {
         console.log('cached home');
         return parsedData;
       }
