@@ -28,7 +28,7 @@
 	<title>Gianluca Gini - Lead Product designer</title>
 </svelte:head>
 
-<header>
+<header id="top">
 	<Navbar />
 </header>
 
