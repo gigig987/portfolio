@@ -2,7 +2,6 @@
     import { initNotionBlog } from "$lib/notion";
 	
 
-    export const prerender = true;
     initNotionBlog({
 		//from .env
         tokens: {
